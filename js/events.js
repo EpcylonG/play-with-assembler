@@ -9,6 +9,5 @@ function saveUserName(){
         console.log("Introduce un nombre");
     } else {
         localStorage.setItem("userName", variable.userName.value);
-        console.log("added - " + localStorage.getItem("userName"));
     }
 }

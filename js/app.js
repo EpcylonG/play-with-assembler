@@ -1,1 +1,2 @@
-import * as event from "./events.js";
+import * as events from "./events.js";
+import * as windows from "./windows.js";
