@@ -1,0 +1,29 @@
+.body-center{
+    background-color: var(--background);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    margin-top: -160px;
+    left: 50%;
+    margin-left: -145px;
+}
+
+.header{
+    background-color: var(--scoreboard-backgorund);
+    width: 100%;
+    min-width: 300px;
+    height: 81px;
+}
+
+.scoreboard-button{
+    width: 100%;
+    min-width: 300px;
+    border-top: 1px solid var(--scoreboard-button-border);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: 49px 0px 44px 0px;
+}

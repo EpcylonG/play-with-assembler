@@ -1,0 +1,15 @@
+#scoreboard-text{
+    color: var(--black);
+}
+
+#scoreboard{
+    
+}
+
+#scoreboard p{
+    color: var(--black);
+}
+
+#scoreboard-next{
+    margin: 0px;
+}

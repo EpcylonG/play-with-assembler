@@ -1,0 +1,24 @@
+{
+    "scores": [
+        {
+            "name": "Jhon", 
+            "time": "24"
+        },
+        {
+            "name": "Nick",
+            "time": "26"
+        },
+        {
+            "name": "Mae",
+            "time": "28"
+        },
+        {
+            "name": "Paul",
+            "time": "55"
+        },
+        {
+            "name": "Jane",
+            "time": "33"
+        }
+    ]
+}

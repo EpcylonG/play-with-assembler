@@ -1,5 +1,8 @@
 :root{
     --background: #306c77;
     --button-backgorund: #F1693C;
-    --white: #ffff;
+    --scoreboard-backgorund: #4DBCB6;
+    --scoreboard-button-border: #C4C4C4;
+    --white: #fff;
+    --black: #000;
 }
