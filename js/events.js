@@ -29,15 +29,27 @@ function scoreBoard(){
         for(let i = 0; i < times.length; i++){
             if(i >= 5) return;
             const playerElement = document.createElement("p");
-            console.log((i+1) + ". " + times[i].name + " - " + times[i].time);
-            playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";
+            playerElement.className = "player";
+            if(i === 0) {
+                playerElement.classList.add("leader");
+                const leaderIcon = document.createElement("img");
+                leaderIcon.src = "./assets/icons/leader.png";
+                leaderIcon.width = 70;
+                const leaderP = document.createElement("p");
+                leaderP.className = "leaderP";
+                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";
+                playerElement.appendChild(leaderIcon);
+                console.log(leaderP);
+                playerElement.appendChild(leaderP);
+            } else {
+                playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";
+            }
             scoreboard.appendChild(playerElement);
-
         }
     });
 
     const scoreboardNext = document.getElementById("scoreboard-next");
-    scoreboardNext.textContent = "Next";
+    scoreboardNext.textContent = "Start";
 }
 
 function loadJson(callback){

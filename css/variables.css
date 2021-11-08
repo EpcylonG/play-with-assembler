@@ -1,8 +1,9 @@
 :root{
-    --background: #306c77;
-    --button-backgorund: #F1693C;
-    --scoreboard-backgorund: #4DBCB6;
-    --scoreboard-button-border: #C4C4C4;
-    --white: #fff;
-    --black: #000;
+    --background: rgba(11, 109, 121, 1);
+    --button-backgorund: rgba(241, 105, 60, 1);
+    --scoreboard-backgorund: rgba(77, 188, 182, 1);
+    --leader: rgba(254, 194, 50, 0.9);
+    --scoreboard-button-border: rgba(196, 196, 196, 1);
+    --text: rgba(69, 69, 69, 0.9);
+    --white: rgba(254, 255, 254, 1);
 }
