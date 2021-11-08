@@ -34,7 +34,7 @@ function scoreBoard(){
                 playerElement.classList.add("leader");
                 const leaderIcon = document.createElement("img");
                 leaderIcon.src = "./assets/icons/leader.png";
-                leaderIcon.width = 70;
+                leaderIcon.width = 50;
                 const leaderP = document.createElement("p");
                 leaderP.className = "leaderP";
                 leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";

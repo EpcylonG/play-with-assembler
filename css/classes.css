@@ -14,19 +14,22 @@
 .header{
     background-color: var(--scoreboard-backgorund);
     width: 100%;
+    min-width: 700px;
     height: 81px;
 }
 
 .player{
-    padding: 2%;
+    padding: 20px;
+    margin-top: 10px;
     word-spacing: 27px;
+    max-width: 500px;
 }
 
+/* el background del leader pasa encima de la imagen y se aleja en grande*/
 .player.leader{
-    /* height */
-    background-color: greenyellow;
     display:flex;
     align-items:center;
+    min-height: 24px;
 }
 
 .player.leader img{
@@ -36,26 +39,38 @@
 .leaderP{
     background-color: var(--leader);
     max-width: fit-content;
-    justify-self: center;
-    align-self: center;
+    min-height: auto;
+    padding: 20px 100px 20px 100px;
     position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     flex: 1;
 }
+/*  */
 
 .scoreboard-button{
     background-color: var(--white);
-    width: 100%;
     border-top: 1px solid var(--scoreboard-button-border);
     text-align: center;
     position: relative;
     bottom: 0;
     padding: 49px 0px 44px 0px;
+    margin-top: 100px;
+    min-width: 700px;
 }
 
-@media only screen and (max-width: 1202px) {
-    [class*="scoreboard-button"] {
+@media only screen and (min-width: 700px) {
+    .player{
+        margin-top: 10%;
+    }
+    .player.leader img {
+        position: fixed;
+        left: 0;
+        left: 20%;
+        transform: translateX(-50%);
+    }
+    .scoreboard-button {
         position: absolute;
-        min-width: 300px;
         width: 100%;
     }
   }
