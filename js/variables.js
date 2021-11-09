@@ -2,16 +2,16 @@ export const body = document.getElementById("body-container");
 export const userName = document.getElementById("user-name");
 export const getUserName = localStorage.getItem("userName");
 export const buttonNext = document.getElementById("button-next");
-export const scoreboardPage = [element("div", null, "header"),
-                               [
-                                element("p", null, "memoryText"),
-                                element("p", null, "userName")
-                               ],
-                               element("p", "scoreboard-text", "scoreboard-text"),
-                               element("div", "scoreboard"),
-                               element("div", null, "scoreboard-button"),
-                               [element("button", "scoreboard-next")]
-                             ];
+export const header = [element("header", null, "header"),
+                        [
+                        element("p", null, "memoryText"),
+                        element("p", null, "userName")
+                        ]
+                      ];
+export const leaderBoard = [element("div", null, "leaderboard"),
+                              [element("p", "scoreboard-text", "scoreboard-text"),
+                               element("div", "scoreboard")]
+                           ];
 
 export const modePage = [element("section", null, "modes-screen"),
                           element("p", null, "text-center"),
@@ -60,113 +60,22 @@ export const gamePage = [element("main", "game"),
                             element("label", "minutes"),
                             element("label", "seconds")
                            ],
-                           element("section", null, "card-container"),
-                           [
-                            element("div", null, "card", "color-1"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                            element("div", null, "card", "color-1"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-2"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-2"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-3"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-3"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-4"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-4"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-5"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-5"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-6"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-6"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-7"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-7"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-8"),
-                             [
-                              element("div", null, "back-face"),
-                              element("div", null, "front-face"),
-                              [element("img", null, "img-card")]
-                             ],
-                             element("div", null, "card", "color-8"),
+                           element("section", null, "card-container")
+                          ]
+                        ];
+
+export const card = [element("div", null, "card"),
                              [
                               element("div", null, "back-face"),
                               element("div", null, "front-face"),
                               [element("img", null, "img-card")]
                              ]
-                           ]
-                          ]
-                        ];
+                            ];
 
-function element(type, elemId, elemClass, dataColor){
+function element(type, elemId, elemClass){
     const element = document.createElement(type);
     if(elemId != null) element.setAttribute("id", elemId);
     if(elemClass != null) element.setAttribute("class", elemClass);
-    if(dataColor != null) element.setAttribute("data-color", dataColor);
     return element;
 }
 

@@ -1,5 +1,5 @@
 import * as variable from "./variables.js";
-import { readArray } from "./windows.js";
+import { readArray, createCard } from "./windows.js";
 import { assignColors } from "./game-script.js";
 
 variable.buttonNext.addEventListener("click", saveUserName);
@@ -41,7 +41,12 @@ function modes(){
 function playGame(){
     variable.body.innerHTML = "";
     variable.body.classList.remove("body-center");
+    variable.body.classList.add("body-game");
+    header();
+    //game mode
     readArray(variable.gamePage);
+    scoreBoard("easy-mode");
+    createCard(variable.card);
     assignColors("easyMode");
     const imgCard = document.querySelectorAll(".img-card");
     for(let img of imgCard){
@@ -49,16 +54,16 @@ function playGame(){
     }
 }
 
-function scoreBoard(mode){
-    variable.body.innerHTML = "";
-    variable.body.classList.remove("body-center");
-    readArray(variable.scoreboardPage);
-
+function header(){
+    readArray(variable.header);
     const memoryText = document.querySelector(".memoryText");
     memoryText.textContent = "Memory";
-    
     const userName = document.querySelector(".userName");
     userName.textContent = variable.userName.value;
+}
+
+function scoreBoard(mode){
+    readArray(variable.leaderBoard);
     
     const scoreboardText = document.getElementById("scoreboard-text");
     scoreboardText.textContent = "Scoreboard";
@@ -89,11 +94,7 @@ function scoreBoard(mode){
             }
             scoreBoard.appendChild(playerElement);
         }
-    }, mode.target.id);
-
-    const scoreboardNext = document.getElementById("scoreboard-next");
-    scoreboardNext.textContent = "Select Mode";
-    scoreboardNext.addEventListener("click", modes);
+    }, mode);
 }
 
 function loadJson(callback, mode){
