@@ -16,24 +16,45 @@
     width: 100%;
     min-width: 700px;
     height: 81px;
+    display: flex;
+}
+
+.memoryText{
+    font-size: 150%;
+    flex: 1;
+    left: 0;
+}
+
+.userName{
+    font-size: 150%;
+    flex: 1;
+    right: 0;
+}
+
+.link-btn{
+    pointer-events: none;
 }
 
 .player{
-    padding: 20px;
+    padding: 15px;
     margin-top: 10px;
     word-spacing: 27px;
     max-width: 500px;
 }
 
-/* el background del leader pasa encima de la imagen y se aleja en grande*/
 .player.leader{
     display:flex;
     align-items:center;
     min-height: 24px;
+    justify-content: center;
 }
 
 .player.leader img{
-    flex: 0;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-300px);
 }
 
 .leaderP{
@@ -41,12 +62,8 @@
     max-width: fit-content;
     min-height: auto;
     padding: 20px 100px 20px 100px;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    flex: 1;
+    min-width: fit-content;
 }
-/*  */
 
 .scoreboard-button{
     background-color: var(--white);
@@ -59,15 +76,12 @@
     min-width: 700px;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (max-width: 600px) {
     .player{
         margin-top: 10%;
     }
-    .player.leader img {
-        position: fixed;
-        left: 0;
-        left: 20%;
-        transform: translateX(-50%);
+    .player.leader img{
+        display: none;
     }
     .scoreboard-button {
         position: absolute;
