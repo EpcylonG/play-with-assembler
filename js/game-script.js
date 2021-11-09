@@ -18,9 +18,8 @@ let playerTime;
 let easyMode = ['#4DBCB6', '#4DBCB6', '#F1693C', '#F1693C', '#0B6D79', '#0B6D79', '#FEC232', '#FEC232', '#E5E5E5', '#E5E5E5', '#454545', '#454545', '#FAB11E', '#FAB11E', '#000000', '#000000'];
 let impossibleMode = ['#F9CDC3', '#F9CDC3', '#FACBC0', '#FACBC0', '#FAC9BE', '#FAC9BE', '#FBC7BB', '#FBC7BB', '#FBC4B8', '#FBC4B8', '#FCC2B5', '#FCC2B5', '#FCC0B3', '#FCC0B3', '#FDBEB0', '#FDBEB0'];
 
-window.onload = assignColors(easyMode);
-
-function assignColors(mode){
+export function assignColors(mode){
+    console.log(backFace.length);
     for (let i=0; i<backFace.length; i++){
         backFace[i].style.backgroundColor = mode[i];
     }
@@ -130,8 +129,8 @@ let totalSeconds = 0;
 
 function setTime() {
     ++totalSeconds;
-    seconds.innerHTML = pad(totalSeconds % 60);
-    minutes.innerHTML = pad(parseInt(totalSeconds / 60));
+    /*seconds.innerHTML = pad(totalSeconds % 60);
+    minutes.innerHTML = pad(parseInt(totalSeconds / 60));*/
 }
 
 function pad(val) {

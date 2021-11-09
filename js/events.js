@@ -1,5 +1,6 @@
 import * as variable from "./variables.js";
 import { readArray } from "./windows.js";
+import { assignColors } from "./game-script.js";
 
 variable.buttonNext.addEventListener("click", saveUserName);
 
@@ -18,7 +19,7 @@ function modes(){
     variable.body.classList.add("body-center");
     readArray(variable.modePage);
     const modesText = document.querySelector(".text-center");
-    modesText.textContent = "Scoreboard";
+    modesText.textContent = "Start by selecting the mode that you´d like to play:";
     
     const btnText = document.querySelectorAll(".btn-main-text");
     btnText[0].textContent = "Easy Mode";
@@ -40,6 +41,12 @@ function modes(){
 function playGame(){
     variable.body.innerHTML = "";
     variable.body.classList.remove("body-center");
+    readArray(variable.gamePage);
+    assignColors("easyMode");
+    const imgCard = document.querySelectorAll(".img-card");
+    for(let img of imgCard){
+        img.src = "assets/memory.png"
+    }
 }
 
 function scoreBoard(mode){
