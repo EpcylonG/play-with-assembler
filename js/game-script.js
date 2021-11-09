@@ -1,4 +1,11 @@
 const cards = document.querySelectorAll('.card');
+const backFace = document.querySelectorAll('.back-face');
+//Audio
+const bgAudio = new Audio('assets/audio/bg-music.wav');
+const clickAudio = new Audio('assets/audio/click.wav');
+const correctAudio = new Audio('assets/audio/correct.wav');
+const wrongAudio = new Audio('assets/audio/wrong.wav');
+const victoryAudio = new Audio('assets/audio/victory.wav');
 
 let hasFlipped = false;
 let firstCard, secondCard;
@@ -7,7 +14,19 @@ let counter = 0;
 let timeElapsed;
 let playerTime;
 
-window.onload = showCards();
+// Color arrays
+let easyMode = ['#4DBCB6', '#4DBCB6', '#F1693C', '#F1693C', '#0B6D79', '#0B6D79', '#FEC232', '#FEC232', '#E5E5E5', '#E5E5E5', '#454545', '#454545', '#FAB11E', '#FAB11E', '#000000', '#000000'];
+let impossibleMode = ['#F9CDC3', '#F9CDC3', '#FACBC0', '#FACBC0', '#FAC9BE', '#FAC9BE', '#FBC7BB', '#FBC7BB', '#FBC4B8', '#FBC4B8', '#FCC2B5', '#FCC2B5', '#FCC0B3', '#FCC0B3', '#FDBEB0', '#FDBEB0'];
+
+window.onload = assignColors(easyMode);
+
+function assignColors(mode){
+    for (let i=0; i<backFace.length; i++){
+        backFace[i].style.backgroundColor = mode[i];
+    }
+};
+
+setTimeout(showCards, 1000);
 
 //Initial flip of the cards
 function showCards() {
@@ -16,7 +35,6 @@ function showCards() {
             card.classList.add('flip')
         });
     }, 1000);
-    
 }
 
 //Hiding the cards after 5s and starts the stopwatch
@@ -138,10 +156,6 @@ function recapMsg() {
     endOfGameMsg.insertAdjacentElement('beforebegin', blurredBg);
 }
 
-//Audio
-const clickAudio = new Audio('assets/audio/click.wav');
-const correctAudio = new Audio('assets/audio/correct.wav');
-const wrongAudio = new Audio('assets/audio/wrong.wav');
-const victoryAudio = new Audio('assets/audio/victory.wav');
 
 cards.forEach(card => card.addEventListener('click', flipCard));
+
