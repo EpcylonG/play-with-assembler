@@ -58,6 +58,7 @@ export const gamePage = [element("main", "game"),
                            element("section", null, "stopwatch"),
                            [
                             element("label", "minutes"),
+                            element("span", ":"),
                             element("label", "seconds")
                            ],
                            element("section", null, "card-container")
@@ -79,7 +80,5 @@ function element(type, elemId, elemClass){
     return element;
 }
 
-
-// Color arrays
-export const easyMode = ['#4DBCB6', '#F1693C', '#0B6D79', '#FEC232','#E5E5E5', '#454545', '#FAB11E', '#000000'];
+export const easyMode = ['#4DBCB6', '#F1693C', '#2A20FF', '#6A994E','#E5E5E5', '#454545', '#FAB11E', '#000000'];
 export const impossibleMode = ['#F9CDC3', '#FACBC0', '#FAC9BE', '#FBC7BB', '#FBC4B8', '#FCC2B5', '#FCC0B3', '#FDBEB0'];

@@ -1,6 +1,6 @@
 import * as variable from "./variables.js";
 import { readArray, createCard } from "./windows.js";
-import { assignColors } from "./game-script.js";
+import { assignColors, flipCard, resetBoard, showCards, setTime } from "./game-script.js";
 
 variable.buttonNext.addEventListener("click", saveUserName);
 
@@ -33,25 +33,42 @@ function modes(){
 
     const modeBtn = document.querySelectorAll(".mode-btn");
     modeBtn[0].addEventListener("click", playGame);
-    /*modeBtn[0].addEventListener("click", scoreBoard);
-    modeBtn[1].addEventListener("click", scoreBoard);
-    modeBtn[2].addEventListener("click", scoreBoard);*/
+    modeBtn[1].addEventListener("click", playGame);
+    modeBtn[2].addEventListener("click", playGame);
 }
 
-function playGame(){
+function playGame(e){
     variable.body.innerHTML = "";
     variable.body.classList.remove("body-center");
     variable.body.classList.add("body-game");
     header();
-    //game mode
     readArray(variable.gamePage);
-    scoreBoard("easy-mode");
-    createCard(variable.card);
-    assignColors("easyMode");
-    const imgCard = document.querySelectorAll(".img-card");
-    for(let img of imgCard){
-        img.src = "assets/memory.png"
+    scoreBoard(e.target.id);
+    if(e.target.id === "impossible-mode") {
+        createCard(variable.card, variable.impossibleMode);
+        assignColors();
+    } else {
+        createCard(variable.card, variable.easyMode);
+        assignColors();
     }
+    const imgCard = document.querySelectorAll(".img-card");
+    for(let img of imgCard) img.src = "assets/memory.png";
+    const separator = document.getElementById(":");
+    separator.textContent = ":";
+    game();   
+}
+
+function game(){
+    const cards = document.querySelectorAll('.card');
+    resetBoard();
+    showCards(cards);
+    setTime();
+    setTimeout(()=>{
+        cards.forEach(card => {
+            card.addEventListener("click", flipCard);
+        });
+    }, 6500);
+    
 }
 
 function header(){

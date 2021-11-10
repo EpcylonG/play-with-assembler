@@ -169,15 +169,15 @@
     transform-style: preserve-3d;
     transition: transform 0.5s; 
     cursor: pointer;
-    
+    border-radius:5px;
 }
 .card:active {
     transform: scale(0.95);
     transition: transform 0.2s;
 }
-/* selects the card class that also has the flip class */
+
 .card.flip {
-    transform: rotateY(180deg)
+    transform: rotateY(180deg);
 }
 
 .front-face, .back-face {

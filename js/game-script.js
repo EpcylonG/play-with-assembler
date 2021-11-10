@@ -1,5 +1,3 @@
-const cards = document.querySelectorAll('.card');
-const backFace = document.querySelectorAll('.back-face');
 //Audio
 const bgAudio = new Audio('assets/audio/bg-music.wav');
 const clickAudio = new Audio('assets/audio/click.wav');
@@ -14,46 +12,45 @@ let counter = 0;
 let timeElapsed;
 let playerTime;
 
-// Color arrays
-let easyMode = ['#4DBCB6', '#4DBCB6', '#F1693C', '#F1693C', '#0B6D79', '#0B6D79', '#FEC232', '#FEC232', '#E5E5E5', '#E5E5E5', '#454545', '#454545', '#FAB11E', '#FAB11E', '#000000', '#000000'];
-let impossibleMode = ['#F9CDC3', '#F9CDC3', '#FACBC0', '#FACBC0', '#FAC9BE', '#FAC9BE', '#FBC7BB', '#FBC7BB', '#FBC4B8', '#FBC4B8', '#FCC2B5', '#FCC2B5', '#FCC0B3', '#FCC0B3', '#FDBEB0', '#FDBEB0'];
-
-export function assignColors(mode){
-    for (let i=0; i<backFace.length; i++){
-        backFace[i].style.backgroundColor = mode[i];
-    }
+export function assignColors(){
+    const backFace = document.querySelectorAll('.back-face');
+    let color = 0;
+    for (let i = 0; i < backFace.length; i++) backFace[i].style.backgroundColor = backFace[i].parentElement.style.backgroundColor;
 };
 
-setTimeout(showCards, 1000);
-
 //Initial flip of the cards
-function showCards() {
+export function showCards(cards) {
+    shuffleCards(cards);
     setTimeout(()=>{
         cards.forEach(card => {
             card.classList.add('flip')
         });
     }, 1000);
+    setTimeout(()=>{
+        hideCards(cards);
+    }, 6000);
 }
 
-//Hiding the cards after 5s and starts the stopwatch
-function hideCards() {
+// SHUFFLING THE cards + Immediately Invoked Function Expression
+function shuffleCards(cards) {
     cards.forEach(card => {
-        card.classList.remove('flip')
+        let randomPosition = Math.floor(Math.random() * 16);
+        card.style.order = randomPosition;
+    });
+};
+
+//Hiding the cards after 5s and starts the stopwatch
+function hideCards(cards) {
+    setTimeout(()=>{
+        cards.forEach(card => {
+            card.classList.remove('flip')
+        });
     });
     timeElapsed = setInterval(setTime, 1000);
 }
-setTimeout(hideCards, 5000);
-
-//End of the game and final message display
-function gameRecap() {
-    playerTime = `${minutes.innerText}:${seconds.innerText}`;
-    clearInterval(timeElapsed); //stops the timer
-    setTimeout(recapMsg, 1000);
-    victoryAudio.play();
-}
 
 // Main function for flipping the cards
-function flipCard() {
+export function flipCard() {
     clickAudio.currentTime = 0;
     clickAudio.play();
     if (lockBoard) return; //if the board is locked, don't let another flip;
@@ -72,6 +69,7 @@ function flipCard() {
     secondCard = this;
     matchingFunction();
 }
+
 //Function that checks if the cards match
 function matchingFunction() {
     // do cards match? if yes, remove flip event listener
@@ -89,12 +87,28 @@ function matchingFunction() {
         wrongAudio.play();
     }
 }
+
 //Function that disables the flip if the cards match
 function disableFlip() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
     resetBoard()
 }
+
+//Function that resets the main variables
+export function resetBoard() {
+    [hasFlipped, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
+}
+
+//End of the game and final message display
+function gameRecap() {
+    playerTime = `${minutes.innerText}:${seconds.innerText}`;
+    clearInterval(timeElapsed); //stops the timer
+    setTimeout(recapMsg, 1000);
+    victoryAudio.play();
+}
+
 //Function that flips the cards back because they don't match
 function flipBack() {
     lockBoard = true;
@@ -106,39 +120,22 @@ function flipBack() {
         resetBoard()
     }, 1250);
 }
-//Function that resets the main variables
-function resetBoard() {
-    [hasFlipped, lockBoard] = [false, false];
-    [firstCard, secondCard] = [null, null];
-}
-
-// SHUFFLING THE cards + Immediately Invoked Function Expression
-(function shuffleCards() {
-    cards.forEach(card => {
-        let randomPosition = Math.floor(Math.random() * 16);
-        card.style.order = randomPosition;
-    });
-})();
 
 // Stopwatch
-
-const minutes = document.getElementById("minutes");
-const seconds = document.getElementById("seconds");
 let totalSeconds = 0;
 
-function setTime() {
+export function setTime() {
+    const minutes = document.getElementById("minutes");
+    const seconds = document.getElementById("seconds");
+    seconds.textContent = pad(totalSeconds % 60);
+    minutes.textContent = pad(parseInt(totalSeconds / 60));
     ++totalSeconds;
-    /*seconds.innerHTML = pad(totalSeconds % 60);
-    minutes.innerHTML = pad(parseInt(totalSeconds / 60));*/
 }
 
 function pad(val) {
     let valString = val + "";
-    if (valString.length < 2) {
-    return "0" + valString;
-    } else {
-    return valString;
-    }
+    if (valString.length < 2) return "0" + valString;
+    else return valString;
 }
 
 // Final message with final time
@@ -152,8 +149,10 @@ function recapMsg() {
     const blurredBg = document.createElement('div');
     blurredBg.classList.add('bg-blur');
     endOfGameMsg.insertAdjacentElement('beforebegin', blurredBg);
+
+
+    //play again
+    //añadir al leader board
 }
 
-
-cards.forEach(card => card.addEventListener('click', flipCard));
 

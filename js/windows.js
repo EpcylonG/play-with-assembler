@@ -18,13 +18,17 @@ function readInsideArray(array, parent){
     }
 }
 
-export function createCard(array){
-
+export function createCard(array, mode){
     const cardContainer = document.querySelector(".card-container");
     let temp = newCard(array, cardContainer);
-    for(let card = 1; card < 16; card++){
-        cardContainer.appendChild(temp.cloneNode(true));
+    for(let card = 1; card <= 8; card++){
+        for(let i = 0; i < 2; i++){
+            temp.dataset.color = "color-" + card;
+            temp.style.backgroundColor = mode[card-1];
+            cardContainer.appendChild(temp.cloneNode(true));
+        }
     }
+    cardContainer.removeChild(temp);
 }
 
 function newCard(array, parent){
