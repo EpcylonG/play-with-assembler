@@ -6,58 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/app.js" defer></script>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
     <title>Play With Assembler</title>
 </head>
-<body>
+<body id="body-container" class="body-center">
     <p>Pick a user name</p>
     <input type="text" id="user-name" onfocus="this.value=''" placeholder="Your name...">
     <button id="button-next">Next</button>
-    <!-- ranking -->
-
-    <!-- hangman -->
-    <!-- cada ronda se elije una palabra mayor que la ronda anterior -->
-    <!-- usable solo desde teclado (preferiblemente ambos) // ademas usable para movil (touch)-->
-
-    <!-- click en 10 seg -->
-    <!-- elegir niveles // facil (estatico y jugable con espacio) // medio (cada click cambia la posicion y el tamaño) // dificil (cada segundo/medio-segundo cambia de posicion) -->
-    <!-- imposible (nunca puedes tocarlo con el raton / no disponible para movil) -->
-
-    <!-- test your reflexes -->
-    <!-- apretar el boton 1 vez cuando aparezca // facil (en el centro) // medio (posicion random) // dificil/reto (el boton solo aparece durante un segundo/medio-segundo y desaparece (ganas o pierdes)) -->
-    <!-- extra: cada segundo sin clieckear cambia de posicion -->
-
-    <!-- memory -->
-    <!-- necesitamos 8 fotos -->
-    <!-- se muestran durante 3 sgundos antes de ocultarse -->
-    <!-- facil (se ocultan y conservan la posicion) // dificil (se giran y cambian las posiciones) // 1 life (si fallas 1 vez se acaba el juego) -->
-    <!-- extra: jugar con teclado (¿no entiendo como jugar esto con teclado, te mueves con flechas y espacio/enter para girar?) -->
-
-    <!-- 
-        Requisitos: 1HTML - Ranking siempre visible (el menu principal puede ser nº de top 1 de cada jugador) - Cuando empieces un juego aparece en "jugando.." y al terminar se actualiza -
-        Cuando acaba el juego se muestra el resultado - Todos los juegos pueden jugarse sin refrescar la página - guardar en local ranking y nombre de usuario
-    -->
-    <section class="modes-screen">
-        <p class="text-center">Start by selecting the mode that you'd like to play:</p>
-        <div class="mode-btn">
-            <a class='link-btn' href="#">
-                <div class='circle'></div>
-                <div class="btn-text">
-                    <span class='btn-main-text'>Easy mode</span>
-                    <span class='btn-secondary-text'>Complete the game as fast as possible</span>
-                </div>
-            </a>
-        </div>
-        <div class="mode-btn">
-            <a class='link-btn' href="#">
-                <div class='circle'></div>
-                <div class="btn-text">
-                    <span class='btn-main-text'>Hard mode</span>
-                    <span class='btn-secondary-text'>Complete the game without an error</span>
-                </div>
-            </a>
-        </div>
-    </section>
 </body>
 </html>

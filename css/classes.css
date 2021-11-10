@@ -1,0 +1,250 @@
+.body-center{
+    background-color: var(--background);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    margin-top: -160px;
+    left: 50%;
+    margin-left: -145px;
+}
+
+.body-game{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 1610px;
+}
+
+.body-game:first-child{
+    flex: 0 1 100%;
+}
+
+.body-game:nth-child(n){
+    display:flex; 
+    flex-direction:row; 
+    justify-content:center;
+}
+
+.memoryText{
+    font-size: 150%;
+    flex: 1;
+    left: 0;
+}
+
+.userName{
+    font-size: 150%;
+    flex: 1;
+    right: 0;
+}
+
+.link-btn{
+    pointer-events: none;
+}
+
+.leaderboard{
+    position: relative;
+    max-width: 650px;
+    margin-top: 0;
+}
+
+.player{
+    padding: 15px;
+    margin-top: 10px;
+    word-spacing: 27px;
+    max-width: 500px;
+}
+
+.player.leader{
+    display:flex;
+    align-items:center;
+    min-height: 24px;
+    justify-content: center;
+}
+
+.player.leader img{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-300px);
+}
+
+.leaderP{
+    background-color: var(--leader);
+    max-width: fit-content;
+    min-height: auto;
+    padding: 20px 100px 20px 100px;
+    min-width: fit-content;
+}
+
+@media only screen and (max-width: 1370px) {
+    .body-game:nth-child(n){
+        display:flex; 
+        flex-direction:column; 
+        justify-content:center;
+    }
+    .leaderboard{
+        margin: 10%;
+        margin-top: 0%;
+    }
+    .player{
+        margin-top: 10%;
+    }
+    .scoreboard-button {
+        position: absolute;
+        width: 100%;
+    }
+}
+
+/* MODES SCREEN */
+.mode-btn {
+    width: 280px;
+    height: 80px;
+    border-radius: 8px;
+    background-color: var(--light-green);
+    margin-bottom: 22px;
+}
+.mode-btn:hover {
+    background-color: var(--white);
+}
+
+.link-btn {
+    text-decoration: none;
+    display: flex;
+}
+.circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin: 15px;
+    background-color: var(--light-yellow);
+    border: 1px solid var(--dark-yellow);
+}
+.btn-main-text {
+    display: block;
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-top: 22px;
+
+}
+.btn-secondary-text {
+    display: block;
+    color: var(--text);
+    font-size: 0.6rem;
+}
+.text-center {
+    font-size: 1.2rem;
+    max-width: 280px;
+}
+
+.stopwatch {
+    align-self: flex-end;
+    padding: 15px;
+    background-color: #c4c4c480;
+    color: #454545;
+    width: 165px;
+    height: 40px;
+    text-align: center;
+}
+
+.card-container {
+    background-color: #53362c;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 80px 30px 80px;
+    padding: 10px;
+}
+
+.card {
+    width: calc(25% - 10px);
+    height: calc(25% - 10px);
+    position: relative;
+    margin: 5px;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.5s; 
+    cursor: pointer;
+    border-radius:5px;
+}
+.card:active {
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+.card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face, .back-face {
+    position: absolute;
+    width: 100%;
+    height:100%;
+    border-radius:5px;
+    background: #FAB11E;
+    display: flex;
+    backface-visibility: hidden;
+}
+.front-face img {
+    width: 70%;
+    display: block;
+    margin: auto;
+    backface-visibility: hidden;
+}
+.back-face {
+    transform: rotateY(180deg);
+}
+
+/* FINAL MSG */
+.final-msg {
+    display: block;
+    background: #fff;
+    color: #454545;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: 10px solid rgba(0, 0, 0, 0.5);
+    width: 250px;
+    font-size:1.2rem;
+    text-align: center;
+}
+.bg-blur {
+    background: rgba(0, 0, 0, 0.5);
+    filter: blur(4px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* Buttons */
+.end-button{
+    font-size: 0.8rem;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: #F1693C;
+    border: none;
+    color: var(--white);
+    font-size: 18px;
+    padding: 8px 0px;
+    color: #fff;
+    transform: scale(1);
+}
+.end-button:hover{
+    background-color: #306c77;
+    color: #fff;
+}
+.end-button:active {
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}

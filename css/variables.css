@@ -1,9 +1,12 @@
 :root{
-    --background: #306c77;
-    --button-backgorund: #F1693C;
-    --white: #ffff;
-    --light-green: #4DBCB6;
-    --light-yellow: #FEC232;
-    --dark-yellow: #FAB11E;
-    --black: #454545;
+    --background: rgba(11, 109, 121, 1);
+    --button-backgorund: rgba(241, 105, 60, 1);
+    --scoreboard-backgorund: rgba(77, 188, 182, 1);
+    --leader: rgba(254, 194, 50, 0.9);
+    --scoreboard-button-border: rgba(196, 196, 196, 1);
+    --text: rgba(69, 69, 69, 0.9);
+    --white: rgba(254, 255, 254, 1);
+    --light-green: rgba(77, 188, 182, 1);
+    --light-yellow: rgba(254, 194, 50, 1);
+    --dark-yellow: rgba(250, 177, 30, 1);
 }
