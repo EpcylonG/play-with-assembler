@@ -1,24 +1,24 @@
 {
     "scores": [
         {
-            "name": "Jhon", 
-            "time": "24"
+            "name": "McGuayern", 
+            "time": "00:24"
         },
         {
-            "name": "Nick",
-            "time": "26"
+            "name": "Alberto Contador",
+            "time": "00:26"
         },
         {
             "name": "Mae",
-            "time": "28"
+            "time": "00:28"
         },
         {
             "name": "Paul",
-            "time": "55"
+            "time": "01:02"
         },
         {
             "name": "Jane",
-            "time": "33"
+            "time": "00:33"
         }
     ]
 }

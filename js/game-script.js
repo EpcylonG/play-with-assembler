@@ -1,3 +1,6 @@
+import { getMode, loadJson, modes, scoreBoard } from "./events.js";
+import { getUserName } from "./variables.js";
+
 //Audio
 const bgAudio = new Audio('assets/audio/bg-music.wav');
 const clickAudio = new Audio('assets/audio/click.wav');
@@ -14,7 +17,6 @@ let playerTime;
 
 export function assignColors(){
     const backFace = document.querySelectorAll('.back-face');
-    let color = 0;
     for (let i = 0; i < backFace.length; i++) backFace[i].style.backgroundColor = backFace[i].parentElement.style.backgroundColor;
 };
 
@@ -122,7 +124,7 @@ function flipBack() {
 }
 
 // Stopwatch
-let totalSeconds = 0;
+export let totalSeconds = 0;
 
 export function setTime() {
     const minutes = document.getElementById("minutes");
@@ -131,6 +133,8 @@ export function setTime() {
     minutes.textContent = pad(parseInt(totalSeconds / 60));
     ++totalSeconds;
 }
+
+export function resetTime() { totalSeconds = 0; }
 
 function pad(val) {
     let valString = val + "";
@@ -143,16 +147,26 @@ function recapMsg() {
     const endOfGameMsg = document.createElement('p');
     endOfGameMsg.classList.add('final-msg');
     endOfGameMsg.innerHTML = `Great job! Your time is <b>${playerTime}</b>
-    <button class='end-button'>Play Again</button> <button class='end-button'>View Leaderboard</button>`;
+    <button class='end-button'>Play Again</button>`;
     const main = document.querySelector('#game');
     main.appendChild(endOfGameMsg);
     const blurredBg = document.createElement('div');
     blurredBg.classList.add('bg-blur');
     endOfGameMsg.insertAdjacentElement('beforebegin', blurredBg);
+    const playAgain = document.querySelector(".end-button");
+    playAgain.addEventListener("click", modes);
 
+    loadJson(function(response) {
+        const player = {name: getUserName, time: playerTime};
+        response.scores.push(JSON.parse(JSON.stringify(player)));
+        localStorage.setItem(getMode(), JSON.stringify(response));
+    }, getMode());
 
-    //play again
-    //añadir al leader board
+    //Esto llama el scoreboard
+    scoreBoard();
+    const scoreboard = document.getElementById("scoreboard");
+    const userPlaying = document.querySelector(".playing");
+    scoreboard.removeChild(userPlaying);
 }
 
 
