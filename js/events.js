@@ -216,3 +216,7 @@ function sortByProperty(property){
 let gameMode;
 function setMode(e) { gameMode = e; }
 export function getMode() { return gameMode; }
+
+function nothing() {
+    return;
+}
