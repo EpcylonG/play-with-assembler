@@ -1,3 +1,6 @@
+import { getMode, loadJson, modes, scoreBoard } from "./events.js";
+import { userName } from "./variables.js";
+
 //Audio
 const gameOverAudio = new Audio('assets/audio/game-over.wav');
 const clickAudio = new Audio('assets/audio/click.wav');
@@ -14,7 +17,6 @@ let playerTime;
 
 export function assignColors(){
     const backFace = document.querySelectorAll('.back-face');
-    let color = 0;
     for (let i = 0; i < backFace.length; i++) backFace[i].style.backgroundColor = backFace[i].parentElement.style.backgroundColor;
 };
 
@@ -80,6 +82,7 @@ function matchingFunction() {
         counter+=2;
         if(counter === 16){
             gameRecap(); //end of the game
+            counter = 0;
         }
     } else {
         flipBack()
@@ -110,6 +113,8 @@ export function resetBoard() {
 //End of the game and final message display
 function gameRecap() {
     playerTime = `${minutes.innerText}:${seconds.innerText}`;
+    const endMsg = `Great job! Your time is <b>${playerTime}</b>
+    <button class='end-button'>Play Again</button>`;
     clearInterval(timeElapsed); //stops the timer
     setTimeout(recapMsg(endMsg), 1000);
     victoryAudio.play();
@@ -128,7 +133,7 @@ function flipBack() {
 }
 
 // Stopwatch
-let totalSeconds = 0;
+export let totalSeconds = 0;
 
 export function setTime() {
     const minutes = document.getElementById("minutes");
@@ -138,6 +143,8 @@ export function setTime() {
     ++totalSeconds;
 }
 
+export function resetTime() { totalSeconds = 0; }
+
 function pad(val) {
     let valString = val + "";
     if (valString.length < 2) return "0" + valString;
@@ -145,8 +152,6 @@ function pad(val) {
 }
 
 // Final message with final time
-const endMsg = `Great job! Your time is <b>${playerTime}</b>
-<button class='end-button'>Play Again</button>`;
 const endMsgHardMode = `<b>GAME OVER</b> <button class='end-button'>Play Again</button>`;
 
 function recapMsg(msg) {
@@ -158,10 +163,20 @@ function recapMsg(msg) {
     const blurredBg = document.createElement('div');
     blurredBg.classList.add('bg-blur');
     endOfGameMsg.insertAdjacentElement('beforebegin', blurredBg);
+    const playAgain = document.querySelector(".end-button");
+    playAgain.addEventListener("click", modes);
+    if(msg.includes("GAME OVER")) return;
+    loadJson(function(response) {
+        console.log(response);
+        const player = {name: userName.value, time: playerTime};
+        response.scores.push(JSON.parse(JSON.stringify(player)));
+        localStorage.setItem(getMode(), JSON.stringify(response));
+    }, getMode());
 
-
-    //play again
-    //añadir al leader board
+    scoreBoard();
+    const scoreboard = document.getElementById("scoreboard");
+    const userPlaying = document.querySelector(".playing");
+    if(userPlaying != null) scoreboard.removeChild(userPlaying);
 }
 
 

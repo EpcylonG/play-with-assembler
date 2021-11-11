@@ -1,6 +1,6 @@
 import * as variable from "./variables.js";
 import { readArray, createCard } from "./windows.js";
-import { assignColors, flipCard, resetBoard, showCards, setTime } from "./game-script.js";
+import { assignColors, flipCard, resetBoard, showCards, setTime, resetTime } from "./game-script.js";
 
 variable.buttonNext.addEventListener("click", saveUserName);
 
@@ -17,8 +17,9 @@ function saveUserName(){
     }
 }
 
-function modes(){
+export function modes(){
     variable.body.innerHTML = "";
+    variable.body.classList.remove("body-game");
     variable.body.classList.add("body-center");
     readArray(variable.modePage);
     const modesText = document.querySelector(".text-center");
@@ -45,6 +46,7 @@ gameModeText.classList.add("game-mode");
 const countdownAudio = new Audio('assets/audio/countdown.wav')
 
 function playGame(e){
+    setMode(e.target.id);
     setTimeout(()=> {
         countdownAudio.volume = 0.1;
         countdownAudio.play();
@@ -54,7 +56,12 @@ function playGame(e){
     variable.body.classList.add("body-game");
     header();
     readArray(variable.gamePage);
-    scoreBoard(e.target.id);
+    scoreBoard();
+    const cardContainer = document.querySelector(".card-container");
+    if(cardContainer.innerHTML != ""){
+        cardContainer.innerHTML = "";
+        clearGame();
+    }
     if(e.target.id === "impossible-mode") {
         createCard(variable.card, variable.impossibleMode);
         assignColors();
@@ -91,7 +98,6 @@ function game(){
             card.addEventListener("click", flipCard);
         });
     }, 6500);
-    
 }
 
 function header(){
@@ -102,7 +108,7 @@ function header(){
     userName.textContent = variable.userName.value;
 }
 
-function scoreBoard(mode){
+export function scoreBoard(){
     readArray(variable.leaderBoard);
     
     const scoreboardText = document.getElementById("scoreboard-text");
@@ -116,7 +122,10 @@ function scoreBoard(mode){
         times.sort(sortByProperty("time"));
         
         for(let i = 0; i < times.length; i++){
-            if(i >= 5) return;
+            if(i >= 5) {
+                addUserPlaying();
+                return;
+            }
             const playerElement = document.createElement("p");
             playerElement.className = "player";
             if(i === 0) {
@@ -126,27 +135,36 @@ function scoreBoard(mode){
                 leaderIcon.width = 50;
                 const leaderP = document.createElement("p");
                 leaderP.className = "leaderP";
-                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";
+                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
                 playerElement.appendChild(leaderIcon);
                 playerElement.appendChild(leaderP);
-            } else {
-                playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time + "s";
-            }
+            } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
             scoreBoard.appendChild(playerElement);
+            if(i === times.length-1) addUserPlaying();
         }
-    }, mode);
+    });
 }
 
-function loadJson(callback, mode){
-    var json = new XMLHttpRequest();
-    json.overrideMimeType("application/json");
-    json.open('GET', 'json/' + mode + '.json', true);
-    json.onreadystatechange = function () {
-      if (json.readyState == 4 && json.status == "200") {
-        callback(JSON.parse(json.response));
-      }
-    };
-    json.send(null); 
+function addUserPlaying(){
+    const userPlaying = document.getElementById("scoreboard");
+    const player = document.createElement("p");
+    player.className = "player playing";
+    player.textContent = variable.userName.value + " Playing...";
+    userPlaying.appendChild(player);
+}
+
+export function loadJson(callback){
+    if(JSON.parse(localStorage.getItem(getMode())) === null){
+        var json = new XMLHttpRequest();
+        json.overrideMimeType("application/json");
+        json.open('GET', 'json/' + getMode() + '.json', true);
+        json.onreadystatechange = function () {
+            if (json.readyState == 4 && json.status == "200") callback(JSON.parse(json.response));
+        };
+        json.send(null); 
+    } else {
+        callback(JSON.parse(localStorage.getItem(getMode())));
+    }
 }
 
 function sortByProperty(property){  
@@ -157,4 +175,22 @@ function sortByProperty(property){
           return -1;  
        return 0;  
     }  
- }
+}
+
+ function clearGame(){
+    const main = document.querySelector('#game');
+    const blur = document.querySelector('.bg-blur');
+    const msg = document.querySelector('.final-msg');
+    main.removeChild(blur);
+    main.removeChild(msg);
+    //for(let i = 0; i < 2; i++) main.removeChild(main.childNodes[0]);
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.classList.remove("flip");
+    });
+    resetTime();
+}
+
+let gameMode;
+function setMode(e) { gameMode = e; }
+export function getMode() { return gameMode; }

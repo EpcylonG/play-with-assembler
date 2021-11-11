@@ -2,23 +2,23 @@
     "scores": [
         {
             "name": "Jhon", 
-            "time": "44"
+            "time": "00:44"
         },
         {
             "name": "Nick",
-            "time": "46"
+            "time": "00:46"
         },
         {
             "name": "Mae",
-            "time": "48"
+            "time": "00:48"
         },
         {
             "name": "Paul",
-            "time": "75"
+            "time": "01:15"
         },
         {
             "name": "Jane",
-            "time": "53"
+            "time": "00:53"
         }
     ]
 }
