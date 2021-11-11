@@ -80,7 +80,7 @@ function matchingFunction() {
         correctAudio.play();
         disableFlip();
         counter+=2;
-        if(counter === 2){ //cambio a 16
+        if(counter === 16){
             gameRecap(); //end of the game
             counter = 0;
         }

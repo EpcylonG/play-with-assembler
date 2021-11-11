@@ -159,12 +159,11 @@ function readTimes(scoreBoard){
             leaderIcon.width = 50;
             const leaderP = document.createElement("p");
             leaderP.className = "leaderP";
-            leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-            playerElement.appendChild(leaderIcon);
+            leaderP.innerHTML = `<p id='position'>${i+1}.</p><p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
             playerElement.appendChild(leaderP);
-        } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-        scoreBoard.appendChild(playerElement);
-        if(i === times.length-1) addUserPlaying();
+            } else playerElement.innerHTML = `<p id='position'>${i+1}.</p> <p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
+            scoreBoard.appendChild(playerElement);
+            if(i === times.length-1) addUserPlaying();
     }
 }
 
