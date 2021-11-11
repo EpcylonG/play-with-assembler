@@ -1,4 +1,4 @@
-import { getMode, loadJson, modes, scoreBoard } from "./events.js";
+import { getMode, modes, scoreBoard, times } from "./events.js";
 import { userName } from "./variables.js";
 
 //Audio
@@ -80,7 +80,7 @@ function matchingFunction() {
         correctAudio.play();
         disableFlip();
         counter+=2;
-        if(counter === 16){
+        if(counter === 2){ //cambio a 16
             gameRecap(); //end of the game
             counter = 0;
         }
@@ -166,17 +166,13 @@ function recapMsg(msg) {
     const playAgain = document.querySelector(".end-button");
     playAgain.addEventListener("click", modes);
     if(msg.includes("GAME OVER")) return;
-    loadJson(function(response) {
-        console.log(response);
-        const player = {name: userName.value, time: playerTime};
-        response.scores.push(JSON.parse(JSON.stringify(player)));
-        localStorage.setItem(getMode(), JSON.stringify(response));
-    }, getMode());
 
-    scoreBoard();
-    const scoreboard = document.getElementById("scoreboard");
-    const userPlaying = document.querySelector(".playing");
-    if(userPlaying != null) scoreboard.removeChild(userPlaying);
+
+    const player = {name: userName.value, time: playerTime};
+    times.push(player);
+    localStorage.setItem(getMode(), JSON.stringify(times));
+
+    scoreBoard(true);
 }
 
 

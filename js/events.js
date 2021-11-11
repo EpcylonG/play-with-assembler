@@ -56,7 +56,7 @@ function playGame(e){
     variable.body.classList.add("body-game");
     header();
     readArray(variable.gamePage);
-    scoreBoard();
+    scoreBoard(false, e.target.id);
     const cardContainer = document.querySelector(".card-container");
     if(cardContainer.innerHTML != ""){
         cardContainer.innerHTML = "";
@@ -108,7 +108,9 @@ function header(){
     userName.textContent = variable.userName.value;
 }
 
-export function scoreBoard(){
+export let times = [];
+
+export function scoreBoard(finished){
     readArray(variable.leaderBoard);
     
     const scoreboardText = document.getElementById("scoreboard-text");
@@ -116,10 +118,78 @@ export function scoreBoard(){
 
     const scoreBoard = document.getElementById("scoreboard");
     scoreBoard.innerHTML = "";
-    const times = [];
-    loadJson(function(response) {
+    console.log(getMode());
+    console.log(JSON.parse(localStorage.getItem(getMode())));
+    if(JSON.parse(localStorage.getItem(getMode())) === null){
+        times = [];
+        var json = new XMLHttpRequest();
+        json.overrideMimeType("application/json");
+        json.open('GET', 'json/' + getMode() + '.json', true);
+        json.onreadystatechange = function () {
+            if (json.readyState == 4 && json.status == "200") {
+                const users = JSON.parse(json.response);
+                for(let player of users.scores) times.push(player);
+                times.sort(sortByProperty("time"));
+
+                for(let i = 0; i < times.length; i++){
+                    if(i >= 5) {
+                        addUserPlaying();
+                        return;
+                    }
+                    const playerElement = document.createElement("p");
+                    playerElement.className = "player";
+                    if(i === 0) {
+                        playerElement.classList.add("leader");
+                        const leaderIcon = document.createElement("img");
+                        leaderIcon.src = "./assets/icons/leader.png";
+                        leaderIcon.width = 50;
+                        const leaderP = document.createElement("p");
+                        leaderP.className = "leaderP";
+                        leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+                        playerElement.appendChild(leaderIcon);
+                        playerElement.appendChild(leaderP);
+                    } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+                    scoreBoard.appendChild(playerElement);
+                    if(i === times.length-1) addUserPlaying();
+                }
+            }
+        };
+        json.send(null); 
+    } else {
+        times.sort(sortByProperty("time"));
+
+        for(let i = 0; i < times.length; i++){
+            if(i >= 5) {
+                addUserPlaying();
+                if(finished){
+                    const leaderboard = document.getElementById("scoreboard");
+                    const player = document.querySelector(".playing");
+                    leaderboard.removeChild(player);
+                }
+                return;
+            }
+            const playerElement = document.createElement("p");
+            playerElement.className = "player";
+            if(i === 0) {
+                playerElement.classList.add("leader");
+                const leaderIcon = document.createElement("img");
+                leaderIcon.src = "./assets/icons/leader.png";
+                leaderIcon.width = 50;
+                const leaderP = document.createElement("p");
+                leaderP.className = "leaderP";
+                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+                playerElement.appendChild(leaderIcon);
+                playerElement.appendChild(leaderP);
+            } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+            scoreBoard.appendChild(playerElement);
+            if(i === times.length-1) addUserPlaying();
+        }
+    }
+
+    /*loadJson(function(response) {
         for(let player of response.scores) times.push(player);
         times.sort(sortByProperty("time"));
+        console.log(times); //sin nuevo usuario
         
         for(let i = 0; i < times.length; i++){
             if(i >= 5) {
@@ -142,7 +212,7 @@ export function scoreBoard(){
             scoreBoard.appendChild(playerElement);
             if(i === times.length-1) addUserPlaying();
         }
-    });
+    });*/
 }
 
 function addUserPlaying(){
