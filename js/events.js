@@ -82,7 +82,7 @@ function playGame(e){
         main.appendChild(gameModeText);
     }
     const imgCard = document.querySelectorAll(".img-card");
-    for(let img of imgCard) img.src = "assets/memory.png";
+    for(let img of imgCard) img.src = "assets/memory-logo2.png";
     const separator = document.getElementById(":");
     separator.textContent = ":";
     game();   
@@ -103,7 +103,7 @@ function game(){
 function header(){
     readArray(variable.header);
     const memoryText = document.querySelector(".memoryText");
-    memoryText.textContent = "Memory";
+    memoryText.innerHTML = '<img src="assets/memory-logo.png" style="width: 30%">';
     const userName = document.querySelector(".userName");
     userName.textContent = variable.userName.value;
 }
@@ -205,10 +205,11 @@ export function scoreBoard(finished){
                 leaderIcon.width = 50;
                 const leaderP = document.createElement("p");
                 leaderP.className = "leaderP";
-                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-                playerElement.appendChild(leaderIcon);
+                leaderP.innerHTML = `<p id='position'>${i+1}.</p><p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
+                // leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+                // playerElement.appendChild(leaderIcon);
                 playerElement.appendChild(leaderP);
-            } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+            } else playerElement.innerHTML = `<p id='position'>${i+1}.</p> <p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
             scoreBoard.appendChild(playerElement);
             if(i === times.length-1) addUserPlaying();
         }
@@ -219,7 +220,8 @@ function addUserPlaying(){
     const userPlaying = document.getElementById("scoreboard");
     const player = document.createElement("p");
     player.className = "player playing";
-    player.textContent = variable.userName.value + " Playing...";
+    // player.textContent = variable.userName.value + " is playing now";
+    player.innerHTML = `<p id='position'>???</p> <p id='name'>${variable.userName.value}</p> <p id='time'>Playing</p>`
     userPlaying.appendChild(player);
 }
 
