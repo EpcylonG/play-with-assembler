@@ -2,18 +2,18 @@ import { getMode, loadJson, modes, scoreBoard } from "./events.js";
 import { getUserName } from "./variables.js";
 
 //Audio
-const bgAudio = new Audio('assets/audio/bg-music.wav');
+const gameOverAudio = new Audio('assets/audio/game-over.wav');
 const clickAudio = new Audio('assets/audio/click.wav');
 const correctAudio = new Audio('assets/audio/correct.wav');
 const wrongAudio = new Audio('assets/audio/wrong.wav');
 const victoryAudio = new Audio('assets/audio/victory.wav');
-
 let hasFlipped = false;
 let firstCard, secondCard;
 let lockBoard = false; //locking the board so you can't flip more than 2 cards at a time
 let counter = 0;
 let timeElapsed;
 let playerTime;
+
 
 export function assignColors(){
     const backFace = document.querySelectorAll('.back-face');
@@ -87,6 +87,12 @@ function matchingFunction() {
         flipBack()
         wrongAudio.currentTime = 0;
         wrongAudio.play();
+        const gameModeText = document.querySelector('.game-mode');
+        if (gameModeText.innerHTML === 'Hard') {
+            clearInterval(timeElapsed); //stops the timer
+            setTimeout(recapMsg(endMsgHardMode), 1000);
+            gameOverAudio.play()
+        }
     }
 }
 
@@ -107,7 +113,7 @@ export function resetBoard() {
 function gameRecap() {
     playerTime = `${minutes.innerText}:${seconds.innerText}`;
     clearInterval(timeElapsed); //stops the timer
-    setTimeout(recapMsg, 1000);
+    setTimeout(recapMsg(endMsg), 1000);
     victoryAudio.play();
 }
 
@@ -143,11 +149,14 @@ function pad(val) {
 }
 
 // Final message with final time
-function recapMsg() {
+const endMsg = `Great job! Your time is <b>${playerTime}</b>
+<button class='end-button'>Play Again</button>`;
+const endMsgHardMode = `<b>GAME OVER</b> <button class='end-button'>Play Again</button>`;
+
+function recapMsg(msg) {
     const endOfGameMsg = document.createElement('p');
     endOfGameMsg.classList.add('final-msg');
-    endOfGameMsg.innerHTML = `Great job! Your time is <b>${playerTime}</b>
-    <button class='end-button'>Play Again</button>`;
+    endOfGameMsg.innerHTML = msg;
     const main = document.querySelector('#game');
     main.appendChild(endOfGameMsg);
     const blurredBg = document.createElement('div');
