@@ -118,8 +118,6 @@ export function scoreBoard(finished){
 
     const scoreBoard = document.getElementById("scoreboard");
     scoreBoard.innerHTML = "";
-    console.log(getMode());
-    console.log(JSON.parse(localStorage.getItem(getMode())));
     if(JSON.parse(localStorage.getItem(getMode())) === null){
         times = [];
         var json = new XMLHttpRequest();
@@ -130,97 +128,50 @@ export function scoreBoard(finished){
                 const users = JSON.parse(json.response);
                 for(let player of users.scores) times.push(player);
                 times.sort(sortByProperty("time"));
-
-                for(let i = 0; i < times.length; i++){
-                    if(i >= 5) {
-                        addUserPlaying();
-                        return;
-                    }
-                    const playerElement = document.createElement("p");
-                    playerElement.className = "player";
-                    if(i === 0) {
-                        playerElement.classList.add("leader");
-                        const leaderIcon = document.createElement("img");
-                        leaderIcon.src = "./assets/icons/leader.png";
-                        leaderIcon.width = 50;
-                        const leaderP = document.createElement("p");
-                        leaderP.className = "leaderP";
-                        leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-                        playerElement.appendChild(leaderIcon);
-                        playerElement.appendChild(leaderP);
-                    } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-                    scoreBoard.appendChild(playerElement);
-                    if(i === times.length-1) addUserPlaying();
-                }
+                readTimes(scoreBoard);
             }
         };
         json.send(null); 
     } else {
+        times = JSON.parse(localStorage.getItem(getMode()));
         times.sort(sortByProperty("time"));
-
-        for(let i = 0; i < times.length; i++){
-            if(i >= 5) {
-                addUserPlaying();
-                if(finished){
-                    const leaderboard = document.getElementById("scoreboard");
-                    const player = document.querySelector(".playing");
-                    leaderboard.removeChild(player);
-                }
-                return;
-            }
-            const playerElement = document.createElement("p");
-            playerElement.className = "player";
-            if(i === 0) {
-                playerElement.classList.add("leader");
-                const leaderIcon = document.createElement("img");
-                leaderIcon.src = "./assets/icons/leader.png";
-                leaderIcon.width = 50;
-                const leaderP = document.createElement("p");
-                leaderP.className = "leaderP";
-                leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-                playerElement.appendChild(leaderIcon);
-                playerElement.appendChild(leaderP);
-            } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-            scoreBoard.appendChild(playerElement);
-            if(i === times.length-1) addUserPlaying();
+        readTimes(scoreBoard);
+        if(finished){
+            const leaderboard = document.getElementById("scoreboard");
+            const player = document.querySelector(".playing");
+            leaderboard.removeChild(player);
         }
     }
+}
 
-    /*loadJson(function(response) {
-        for(let player of response.scores) times.push(player);
-        times.sort(sortByProperty("time"));
-        console.log(times); //sin nuevo usuario
-        
-        for(let i = 0; i < times.length; i++){
-            if(i >= 5) {
-                addUserPlaying();
-                return;
-            }
-            const playerElement = document.createElement("p");
-            playerElement.className = "player";
-            if(i === 0) {
-                playerElement.classList.add("leader");
-                const leaderIcon = document.createElement("img");
-                leaderIcon.src = "./assets/icons/leader.png";
-                leaderIcon.width = 50;
-                const leaderP = document.createElement("p");
-                leaderP.className = "leaderP";
-                leaderP.innerHTML = `<p id='position'>${i+1}.</p><p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
-                // leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
-                // playerElement.appendChild(leaderIcon);
-                playerElement.appendChild(leaderP);
-            } else playerElement.innerHTML = `<p id='position'>${i+1}.</p> <p id='name'>${times[i].name}</p> <p id='time'>${times[i].time}</p>`;
-            scoreBoard.appendChild(playerElement);
-            if(i === times.length-1) addUserPlaying();
+function readTimes(scoreBoard){
+    for(let i = 0; i < times.length; i++){
+        if(i >= 5) {
+            addUserPlaying();
+            return;
         }
-    });*/
+        const playerElement = document.createElement("p");
+        playerElement.className = "player";
+        if(i === 0) {
+            playerElement.classList.add("leader");
+            const leaderIcon = document.createElement("img");
+            leaderIcon.src = "./assets/icons/leader.png";
+            leaderIcon.width = 50;
+            const leaderP = document.createElement("p");
+            leaderP.className = "leaderP";
+            leaderP.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+            playerElement.appendChild(leaderIcon);
+            playerElement.appendChild(leaderP);
+        } else playerElement.textContent = (i+1) + ". " + times[i].name + " " + times[i].time;
+        scoreBoard.appendChild(playerElement);
+        if(i === times.length-1) addUserPlaying();
+    }
 }
 
 function addUserPlaying(){
     const userPlaying = document.getElementById("scoreboard");
     const player = document.createElement("p");
     player.className = "player playing";
-    // player.textContent = variable.userName.value + " is playing now";
     player.innerHTML = `<p id='position'>???</p> <p id='name'>${variable.userName.value}</p> <p id='time'>Playing</p>`
     userPlaying.appendChild(player);
 }
@@ -255,7 +206,6 @@ function sortByProperty(property){
     const msg = document.querySelector('.final-msg');
     main.removeChild(blur);
     main.removeChild(msg);
-    //for(let i = 0; i < 2; i++) main.removeChild(main.childNodes[0]);
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         card.classList.remove("flip");
