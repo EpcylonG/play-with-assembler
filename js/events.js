@@ -149,7 +149,7 @@ function addUserPlaying(){
     const userPlaying = document.getElementById("scoreboard");
     const player = document.createElement("p");
     player.className = "player playing";
-    player.textContent = variable.getUserName + " Playing...";
+    player.textContent = variable.userName.value + " Playing...";
     userPlaying.appendChild(player);
 }
 
@@ -179,7 +179,11 @@ function sortByProperty(property){
 
  function clearGame(){
     const main = document.querySelector('#game');
-    for(let i = 0; i < 2; i++) main.removeChild(main.childNodes[0]);
+    const blur = document.querySelector('.bg-blur');
+    const msg = document.querySelector('.final-msg');
+    main.removeChild(blur);
+    main.removeChild(msg);
+    //for(let i = 0; i < 2; i++) main.removeChild(main.childNodes[0]);
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         card.classList.remove("flip");

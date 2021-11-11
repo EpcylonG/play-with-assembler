@@ -1,5 +1,5 @@
 import { getMode, loadJson, modes, scoreBoard } from "./events.js";
-import { getUserName } from "./variables.js";
+import { userName } from "./variables.js";
 
 //Audio
 const gameOverAudio = new Audio('assets/audio/game-over.wav');
@@ -82,6 +82,7 @@ function matchingFunction() {
         counter+=2;
         if(counter === 16){
             gameRecap(); //end of the game
+            counter = 0;
         }
     } else {
         flipBack()
@@ -112,6 +113,8 @@ export function resetBoard() {
 //End of the game and final message display
 function gameRecap() {
     playerTime = `${minutes.innerText}:${seconds.innerText}`;
+    const endMsg = `Great job! Your time is <b>${playerTime}</b>
+    <button class='end-button'>Play Again</button>`;
     clearInterval(timeElapsed); //stops the timer
     setTimeout(recapMsg(endMsg), 1000);
     victoryAudio.play();
@@ -149,8 +152,6 @@ function pad(val) {
 }
 
 // Final message with final time
-const endMsg = `Great job! Your time is <b>${playerTime}</b>
-<button class='end-button'>Play Again</button>`;
 const endMsgHardMode = `<b>GAME OVER</b> <button class='end-button'>Play Again</button>`;
 
 function recapMsg(msg) {
@@ -164,9 +165,10 @@ function recapMsg(msg) {
     endOfGameMsg.insertAdjacentElement('beforebegin', blurredBg);
     const playAgain = document.querySelector(".end-button");
     playAgain.addEventListener("click", modes);
-
+    if(msg.includes("GAME OVER")) return;
     loadJson(function(response) {
-        const player = {name: getUserName, time: playerTime};
+        console.log(response);
+        const player = {name: userName.value, time: playerTime};
         response.scores.push(JSON.parse(JSON.stringify(player)));
         localStorage.setItem(getMode(), JSON.stringify(response));
     }, getMode());
@@ -174,7 +176,7 @@ function recapMsg(msg) {
     scoreBoard();
     const scoreboard = document.getElementById("scoreboard");
     const userPlaying = document.querySelector(".playing");
-    scoreboard.removeChild(userPlaying);
+    if(userPlaying != null) scoreboard.removeChild(userPlaying);
 }
 
 

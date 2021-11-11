@@ -21,11 +21,7 @@
 #scoreboard p{
     margin: 0px;
     font-size: 18px;
-<<<<<<< HEAD
-    width: 200%;
-=======
     width: 80%;
->>>>>>> master
     height: fit-content;
     color: var(--text);
 }
