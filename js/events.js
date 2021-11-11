@@ -45,7 +45,7 @@ function playGame(e){
     variable.body.classList.add("body-game");
     header();
     readArray(variable.gamePage);
-    scoreBoard(e.target.id);
+    scoreBoard();
     const cardContainer = document.querySelector(".card-container");
     if(cardContainer.innerHTML != ""){
         cardContainer.innerHTML = "";

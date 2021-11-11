@@ -162,7 +162,6 @@ function recapMsg() {
         localStorage.setItem(getMode(), JSON.stringify(response));
     }, getMode());
 
-    //Esto llama el scoreboard
     scoreBoard();
     const scoreboard = document.getElementById("scoreboard");
     const userPlaying = document.querySelector(".playing");
