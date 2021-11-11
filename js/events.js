@@ -5,6 +5,9 @@ import { assignColors, flipCard, resetBoard, showCards, setTime } from "./game-s
 variable.buttonNext.addEventListener("click", saveUserName);
 
 function saveUserName(){
+    let gameAudio = new Audio('assets/audio/bg-music.wav');
+    gameAudio.volume = 0.1;
+    // gameAudio.play();
     //control no spaces in name
     if(variable.userName.value === ""){
         console.log("Introduce un nombre");
@@ -29,7 +32,7 @@ function modes(){
     const btnSecondatyText = document.querySelectorAll(".btn-secondary-text");
     btnSecondatyText[0].textContent = "Complete the game as fast as possible";
     btnSecondatyText[1].textContent = "Complete the game without an error";
-    btnSecondatyText[2].textContent = "Complete the game with 3 life";
+    btnSecondatyText[2].textContent = "Complete the game with 3 lives";
 
     const modeBtn = document.querySelectorAll(".mode-btn");
     modeBtn[0].addEventListener("click", playGame);
@@ -37,7 +40,15 @@ function modes(){
     modeBtn[2].addEventListener("click", playGame);
 }
 
+const gameModeText = document.createElement('span');
+gameModeText.classList.add("game-mode");
+const countdownAudio = new Audio('assets/audio/countdown.wav')
+
 function playGame(e){
+    setTimeout(()=> {
+        countdownAudio.volume = 0.1;
+        countdownAudio.play();
+    }, 3000);
     variable.body.innerHTML = "";
     variable.body.classList.remove("body-center");
     variable.body.classList.add("body-game");
@@ -47,9 +58,21 @@ function playGame(e){
     if(e.target.id === "impossible-mode") {
         createCard(variable.card, variable.impossibleMode);
         assignColors();
-    } else {
+        gameModeText.innerHTML = 'Impossible';
+        const main = document.querySelector('#game');
+        main.appendChild(gameModeText);
+    } else if(e.target.id === "hard-mode") {
         createCard(variable.card, variable.easyMode);
         assignColors();
+        gameModeText.innerHTML = 'Hard';
+        const main = document.querySelector('#game');
+        main.appendChild(gameModeText);
+    } else if(e.target.id === "easy-mode") {
+        createCard(variable.card, variable.easyMode);
+        assignColors();
+        gameModeText.innerHTML = 'Easy';
+        const main = document.querySelector('#game');
+        main.appendChild(gameModeText);
     }
     const imgCard = document.querySelectorAll(".img-card");
     for(let img of imgCard) img.src = "assets/memory.png";
