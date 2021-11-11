@@ -12,18 +12,20 @@
 
 #scoreboard{
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     min-width: 400px;
 }
 
 #scoreboard p{
-    margin: 0px;
+    /* margin: 0px; */
     font-size: 18px;
-    width: 80%;
-    height: fit-content;
+    width: 100%;
+    /* height: fit-content; */
     color: var(--text);
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #scoreboard-next{

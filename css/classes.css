@@ -35,15 +35,24 @@
     display: block;
     width: 50%;
     text-align: left;
-    padding-left: 10px;
+    /* padding-left: 10px; */
+    position: absolute;
+    left: 0;
+    margin-left: 10px;
 }
+
 
 .userName{
     font-size: 1.5rem;
     display: block;
-    width: 50%;
-    text-align: right;
-    padding-right: 10px;
+    /* width: 50%; */
+    text-align: center;
+    padding: 5px 25px;
+    border-radius: 5px;
+    background-color: rgba(241, 105, 60, 1);
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
 }
 
 .link-btn{
@@ -61,32 +70,56 @@
 
 .player{
     position: relative;
-    padding: 15px;
+    /* padding: 15px; */
     margin-top: 10px;
-    word-spacing: 27px;
+    /* word-spacing: 27px; */
     max-width: 500px;
+    width: 80% !important;
+    display: flex;
 }
 .player.leader{
     background-color: var(--leader);
     display:flex;
     align-items:center;
     min-height: 24px;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
-.player.leader img{
+/* .player.leader img{
     display: inline;
     position: absolute;
     left: 10%;
     width: 35px;
-}
+} */
 
 .leaderP{
-    max-width: fit-content;
+    /* max-width: fit-content;
     min-height: auto;
-    min-width: fit-content;
+    min-width: fit-content; */
+    display: flex;
+}
+.leader-icon {
+    display: block;
+    width: 50px ;
+}
+.playing {
+    text-align: center !important;
+    background-color: var(--scoreboard-button-border);
 }
 
+#position {
+    width: 20% !important;
+    display: inline;
+    padding-left: 10px;
+}
+#name {
+    display: inline;
+    width: 60% !important;
+}
+#time {
+    display: inline;
+    width: 20% !important;
+}
 /* MODES SCREEN */
 .mode-btn {
     width: 280px;
@@ -187,10 +220,16 @@
         height: auto;
         margin-top: 0px;
     }
+    .userName {
+        font-size: 1rem;
+    }
+    .memoryText {
+        width: 75%;
+    }
 }
 @media only screen and (max-width: 800px) {
     .leaderboard {
-        width: 400px;
+        width: 375px;
         height: auto;
         margin-top: 0px;
         padding-bottom: 25px;
@@ -203,6 +242,12 @@
     .game-mode {
         height: 30px;
         font-size: 1rem;
+    }
+    .userName {
+        font-size: 0.8rem;
+    }
+    .memoryText {
+        width: 100%;
     }
 }
 
@@ -240,6 +285,9 @@
     display: block;
     margin: auto;
     backface-visibility: hidden;
+}
+.front-face {
+    border: 7px solid var(--light-yellow);
 }
 .back-face {
     transform: rotateY(180deg);
